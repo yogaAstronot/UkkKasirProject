@@ -15,6 +15,7 @@
         <a href="/UkkKasirProject/frontend/produk.php">Data Produk</a><br>
         <a href="/UkkKasirProject/frontend/pelanggan.php">Data Pelanggan</a><br>
         <a href="/UkkKasirProject/frontend/penjualan.php">Transaksi Penjualan</a><br>
+        <a href="/UkkKasirProject/frontend/transaksi.php">transaksi Penjualan</a><br>
     </div>
 </body>
 </html>

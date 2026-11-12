@@ -35,8 +35,7 @@
                 <td><?= $row['TanggalPenjualan'] ?></td>
                 <td>Rp <?= $row['TotalHarga'] ?></td>
                 <td>
-                    <!-- Tombol ini mengarah ke file kasir -->
-                    <a href="detail.php?id=<?= $row['PenjualanID'] ?>">Isi Keranjang</a>
+                    <a href="/UkkKasirProject/frontend/detail.php?id=<?= $row['PenjualanID'] ?>">Isi Keranjang</a>
                 </td>
             </tr>
         <?php endwhile; ?>

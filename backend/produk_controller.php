@@ -1,8 +1,10 @@
 <?php
 require 'koneksi.php';
-if (!isset($_SESSION['id_user'])) { header("Location: index.php"); }
+if (!isset($_SESSION['id_user'])) { 
+    header("Location: index.php"); 
+    exit;
+}
 
-// Proses Tambah Produk
 if (isset($_POST['simpan'])) {
     $nama = $_POST['NamaProduk'];
     $harga = $_POST['Harga'];
