@@ -34,7 +34,7 @@
                 Mau menghitung penjualan dengan cepat? <br> Pakai Aplikasi Kasir digital
             </h1>
             <a href="login.php" class="inline-block bg-gray-800 text-white px-5 py-2.5 rounded-lg hover:bg-gray-700 transition" style="max-width: 500px; margin-top: 70px;">
-                Dashboard
+                Masuk
             </a>
         </div>
     </main>
