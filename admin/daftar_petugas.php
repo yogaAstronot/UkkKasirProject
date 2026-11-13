@@ -18,6 +18,12 @@ include __DIR__ . '/../backend/koneksi.php';
         <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
             <div class="p-6 border-b border-gray-200">
                 <h2 class="text-xl font-bold text-blue-600">EasyCasier</h2>
+                <div class="mt-4 box-border border-gray-200 rounded-lg p-4 bg-blue-50">
+                <h1>
+                    <h1 class="text-gray-800">Selamat Datang,<br> 
+                    <?php echo $_SESSION['nama_user']; ?></h1>
+                </h1>
+            </div>
             </div>
 
             <nav class="flex-1 p-4 space-y-1 overflow-y-auto">

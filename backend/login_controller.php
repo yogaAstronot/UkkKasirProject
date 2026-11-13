@@ -14,12 +14,14 @@ if (isset($_POST['login'])) {
                     $_SESSION['id_user'] = $users['id_user'];
                     $_SESSION['nama_user'] = $users['nama_user'];
                     $_SESSION['level'] = $users['level'];
+                    $_SESSION['status_login'] = true;
                     header("Location: /UkkKasirProject/admin/admin_dashboard.php");
                     break;
                 case 'petugas':
                     $_SESSION['id_user'] = $users['id_user'];
                     $_SESSION['nama_user'] = $users['nama_user'];
                     $_SESSION['level'] = $users['level'];
+                    $_SESSION['status_login_admin'] = true;
                     header("Location: /UkkKasirProject/petugas/petugas_dashboard.php");
                     break;
                 default:

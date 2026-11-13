@@ -23,6 +23,6 @@ if (isset($_POST['register'])) {
         echo "<script>alert('Gagal! Username sudah dipakai, silakan cari username lain.');</script>";
     } else {
         $conn->query("INSERT INTO users (nama_user, username, password, level) VALUES ('$nama', '$user', '$pass', '$level')");
-        echo "<script>alert('Registrasi berhasil!'); window.location='admin/admin_dashboard.php';</script>";}
+        echo "<script>alert('Registrasi berhasil!'); window.location='../admin/daftar_petugas.php';</script>";}
 }
 ?>

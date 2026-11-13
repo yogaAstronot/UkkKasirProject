@@ -10,6 +10,7 @@ $data_stok = $sql_stok->fetch_assoc();
 $sql_transaksi = $conn->query("SELECT COUNT(*) AS total_transaksi, SUM(TotalHarga) AS pendapatan FROM penjualan");
 $data_transaksi = $sql_transaksi->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +25,17 @@ $data_transaksi = $sql_transaksi->fetch_assoc();
 
     <div class="flex h-screen overflow-hidden">
         
-        <!-- SIDEBAR -->
         <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
             <div class="p-6 border-b border-gray-200">
                 <h2 class="text-xl font-bold text-blue-600">EasyCasier</h2>
+                 <div class="mt-4 box-border border-gray-200 rounded-lg p-4 bg-blue-50">
+                <h1>
+                    <h1 class="text-gray-800">Selamat Datang,<br> 
+                    <?php echo $_SESSION['nama_user']; ?></h1>
+                </h1>
             </div>
+            </div>
+           
 
             <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
                 <a href="admin_dashboard.php" class="flex items-center px-4 py-2.5 rounded-lg bg-blue-50 text-blue-600 font-semibold text-sm">
@@ -55,10 +62,8 @@ $data_transaksi = $sql_transaksi->fetch_assoc();
             </div>
         </aside>
 
-        <!-- KONTEN UTAMA -->
         <div class="flex-1 flex flex-col overflow-y-auto">
             
-            <!-- HEADER -->
             <header class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center shadow-xs">
                 <h1 class="text-lg font-bold text-gray-800">Dashboard Utama</h1>
             </header>
@@ -78,19 +83,21 @@ $data_transaksi = $sql_transaksi->fetch_assoc();
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-500 font-semibold">
-                                    <th class="py-3 px-6">ID Penjualan</th>
+                                    <th class="py-3 px-6">Nama Pelanggan</th>
+                                    <th class="py-3 pxx-6">Produk yang di beli</th>
                                     <th class="py-3 px-6">Tanggal Penjualan</th>
                                     <th class="py-3 px-6">Total Harga</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
                                 <?php
-                                $sql_penjualan = $conn->query("SELECT * FROM penjualan ORDER BY PenjualanID DESC LIMIT 10");
+                                $sql_penjualan = $conn->query("SELECT penjualan.TanggalPenjualan, pelanggan.NamaPelanggan, penjualan.TotalHarga FROM penjualan JOIN pelanggan ON penjualan.PelangganID = pelanggan.PelangganID ORDER BY penjualan.PenjualanID DESC LIMIT 10");
                                 if ($sql_penjualan && $sql_penjualan->num_rows > 0):
                                     while ($row = $sql_penjualan->fetch_assoc()):
                                 ?>
                                     <tr class="hover:bg-gray-50 transition">
-                                        <td class="py-4 px-6 font-medium text-gray-900">#<?= $row['PenjualanID'] ?></td>
+                                        <td class="py-4 px-6"><?= $row['NamaPelanggan'] ?></td>
+                                        <td class="py-4 px-6"><</td>
                                         <td class="py-4 px-6"><?= $row['TanggalPenjualan'] ?></td>
                                         <td class="py-4 px-6 font-semibold text-green-600">Rp <?= number_format($row['TotalHarga'], 3, ',', '.') ?></td>
                                     </tr>

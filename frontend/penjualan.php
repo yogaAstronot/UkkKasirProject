@@ -20,6 +20,28 @@ include __DIR__ . '/../backend/penjualan_controller.php';
         </select>
         <button type="submit" name="buat_transaksi">Buat Transaksi</button>
     </form>
+
+     <table border="1" cellpadding="5">
+        <tr>
+            <th>ID Transaksi</th>
+            <th>Tanggal</th>
+            <th>Total Harga</th>
+            <th>Aksi</th>
+        </tr>
+        <?php
+        $data = $conn->query("SELECT * FROM penjualan ORDER BY PenjualanID DESC");
+        while ($row = $data->fetch_assoc()):
+        ?>
+            <tr>
+                <td><?= $row['PenjualanID'] ?></td>
+                <td><?= $row['TanggalPenjualan'] ?></td>
+                <td>Rp <?= $row['TotalHarga'] ?></td>
+                <td>
+                    <a href="/UkkKasirProject/frontend/detail.php?id=<?= $row['PenjualanID'] ?>">Isi Keranjang</a>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
     <br>
 </body>
 </html>
