@@ -101,6 +101,10 @@ Tailwind CSS
 ├── package.json
 └── README.md
 ```
+##  Desain ERD (Entity Relationship Diagram)
+
+![Screenshot Kasir](image/ss16.png)
+
 ## Dokumentasi 
 
 ### Landing page
@@ -138,9 +142,9 @@ if ($users = mysqli_fetch_array($cek)) {
 ## Admin Dashboard
 ### Awal dashboard
 
-![Screenshot Kasir](image/ss3.png)
+![Screenshot Kasir](image/ss17.png)
 
-1. Ini kondisi setelah masuk ke dashboard admin, di sini admin akan di perlihatkan penjualan, dari nama, tanggal dan total penjualan. Logika nya seperti ini
+1. Ini kondisi setelah masuk ke dashboard admin, di sini admin akan di perlihatkan penjualan, dari nama, tanggal dan total penjualan dan hapus. Logika nya seperti ini
 
 ```php
 require 'koneksi.php';
@@ -155,7 +159,22 @@ if (isset($_POST['buat_transaksi'])) {
 }
 ```
 
-ini membuat data dari input penjualan bisa di baca oleh admin dari admin_dashboard.php dan menampilkannya
+ini membuat data dari input penjualan bisa di baca oleh admin dari admin_dashboard.php dan admin dapat menghapusnya dengan logic
+
+```php
+if (isset($_GET['PenjualanID'])) {
+    $PenjualanID = $_GET['PenjualanID'];
+
+    mysqli_query($conn, "DELETE FROM detailpenjualan WHERE PenjualanID = '$PenjualanID'");
+    $query = "DELETE FROM penjualan WHERE PenjualanID = '$PenjualanID'";
+    $hapus = mysqli_query($conn, $query);
+
+    if ($hapus) {
+        echo "<script>alert('Data penjualan berhasil dihapus!'); window.location.href='../admin/admin_dashboard.php';</script>";
+    } else {
+        echo "<script>alert('Gagal menghapus data penjualan!'); window.location.href='../admin/admin_dashboard.php';</script>";
+    }
+```
 
 ### Data Produk
 
@@ -240,9 +259,44 @@ if (isset($_POST['simpan'])) {
 
 ![alt text](image/ss6.png)
 
+1. di sini ada fungi untuk melihat daftar pertugas, yang data nya di ambil dari database dan menggunakan method di registrasi controller
+
+2. di sini juga ad fungsi edit juga*
+
+![alt text](image/ss15.png)
+
+**logic nya dalam pemrograman seperti ini**
+
+```php
+id_user = $_POST['id_user'];
+$nama_user = $_POST['nama_user'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+$level = $_POST['level'];
+
+if (empty($password)) {
+    $query = "UPDATE users SET 
+                nama_user = '$nama_user', 
+                username = '$username', 
+                level = '$level' 
+              WHERE id_user = '$id_user'";
+} else {
+    $password_md5 = md5($password);
+    $query = "UPDATE users SET 
+                nama_user = '$nama_user', 
+                username = '$username', 
+                password = '$password_md5', 
+                level = '$level' 
+              WHERE id_user = '$id_user'";
+}
+
+```
+
 ### Tambah Petugas
 
 ![alt text](<image/ss7.png>)
+
+1. di sini juga ada sistem untuk menambah petugas di bagian admin
 
 ## Petugas Dashboard
 
@@ -250,17 +304,23 @@ if (isset($_POST['simpan'])) {
 
 ![alt text](<image/ss8.png>)
 
+1. Di page pertama petugas sudah di perlihatkan dengan petugas_dashboard yang berisi pilihan untuk masuk ke data produk, data pelanggan ataupun masuk ke transaksi
 ### Data Produk
 
 ![alt text](<image/ss9.png>)
 
+1. Jika petugas memilih data produk di sini petugas aan diarahkan ke halaman produk, di sini petugas bisa hapus dan edit sebuah produk yang sudah tersedia
 ### Edit Data produk
 
 ![alt text](<image/ss10.png>)
 
+1. Di sini jika petugas memilih edit data produk dia akan di arahkan ke halaman edit, di sini petugas bisa edit nama produk, harga dan stok. Seteleh itu petugas bisa menyimpan perubahan yang memiliki method post dan update untuk mengirim data baru ke database.
+
 ### Tambah data pelanggan
 
 ![alt text](<image/ss11.png>)
+
+1. Di sini jika petugas memilih data pelanggan, dia akan di arahkan ke pelanggan page untuk menambah data dari pelanggan yang ingin belanja, lalu petugas bisa pencet simpan untuk menyimpan data pelanggan yang sudah di isi, lalu petugas bisa mengisi apa yang pelanggan beli di bagian isi keranjang
 
 ### Buat transaksi
 
@@ -268,4 +328,19 @@ if (isset($_POST['simpan'])) {
 
 ### Subtotal
 
-![alt text](<image/ss13.png>)
+![alt text](<image/ss18.png>)
+
+1.Setelah buat transaksi di sini petugas akan di arahkan langsung ke bagian subtotal agar petugas bisa melihat total apasaja yang di beli pelanggan dan barang barangnya
+                                                            
+# Kesimpulan
+
+**Dari keseluruhan project saya, yang saya kerjakan dari perancangan database, dokumentasi alur sistem, fitur role / level hingga fitur CRUD (Create Read Update Delete)**
+
+Project ini mencakup  hal utama
+* Auth atau manajemen akses, membuat sistem yang berhasil memisahkan antara **admin** yang mengontrol penuh data produk, stok, akun petugas serta monitoring penjualan dan **Petugas** yang berfokus pada pelayanan transaksi, pendataan elanggan hingga perhitungan subtotal.
+
+* Alur kerja CRUD dan ERD, Seluruh fitur pengelolaan data (produk, pelanggan, petugas dan transaksi penjualan) sudah saling terhubung melalui relasi.
+
+* Arsitektur Kode, pemisahan struktur direktori antara admin, frontend, petugas dan logika di bagian backend sudah saya buat agar tidak membuat kebingungan saat saya crosscheck kode
+
+
